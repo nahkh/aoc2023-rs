@@ -13,11 +13,95 @@ fn calculate_calibration_value(row: &str) -> u32 {
             last_value = n;
         }
     }
-    
+
     10 * first_value + last_value
 }
 
+fn find_first_digit(row: &str) -> u32 {
+    let mut buffer = row.to_string();
+    while buffer.len() > 0 {
+        if buffer.starts_with("one") {
+            return 1;
+        }
+        if buffer.starts_with("two") {
+            return 2;
+        }
+        if buffer.starts_with("three") {
+            return 3;
+        }
+        if buffer.starts_with("four") {
+            return 4;
+        }
+        if buffer.starts_with("five") {
+            return 5;
+        }
+        if buffer.starts_with("six") {
+            return 6;
+        }
+        if buffer.starts_with("seven") {
+            return 7;
+        }
+        if buffer.starts_with("eight") {
+            return 8;
+        }
+        if buffer.starts_with("nine") {
+            return 9;
+        }
 
+        let first_char = buffer.chars().next().unwrap();
+        if first_char.is_digit(10) {
+            return first_char.to_digit(10).unwrap();
+        }
+        buffer = buffer[1..].to_string();
+    }
+
+    0
+}
+
+fn find_last_digit(row: &str) -> u32 {
+    let mut buffer = row.to_string();
+    while buffer.len() > 0 {
+        if buffer.ends_with("one") {
+            return 1;
+        }
+        if buffer.ends_with("two") {
+            return 2;
+        }
+        if buffer.ends_with("three") {
+            return 3;
+        }
+        if buffer.ends_with("four") {
+            return 4;
+        }
+        if buffer.ends_with("five") {
+            return 5;
+        }
+        if buffer.ends_with("six") {
+            return 6;
+        }
+        if buffer.ends_with("seven") {
+            return 7;
+        }
+        if buffer.ends_with("eight") {
+            return 8;
+        }
+        if buffer.ends_with("nine") {
+            return 9;
+        }
+
+        let last_char = buffer[buffer.len() - 1..].chars().next().unwrap();
+        if last_char.is_digit(10) {
+            return last_char.to_digit(10).unwrap();
+        }
+        buffer = buffer[..buffer.len() - 1].to_string();
+    }
+
+    0
+}
+
+fn calculate_calibration_value_part2(row: &str) -> u32 {
+    10 * find_first_digit(row) + find_last_digit(row)
+}
 
 fn part1(content: &str) {
     let mut total = 0;
@@ -28,7 +112,11 @@ fn part1(content: &str) {
 }
 
 fn part2(content: &str) {
-    println!("Part 2 not implemented");
+    let mut total = 0;
+    for row in content.lines() {
+        total += calculate_calibration_value_part2(&row);
+    }
+    println!("Part 2: Sum of all calibration values is {}", total);
 }
 
 pub fn execute() {
