@@ -2,8 +2,29 @@ use crate::input_files::get_current_day;
 use crate::input_files::read_content;
 use std::path::Path;
 
+fn calculate_calibration_value(row: &str) -> u32 {
+    let mut first_value = 10;
+    let mut last_value = 10;
+    for c in row.chars() {
+        if let Some(n) = c.to_digit(10) {
+            if first_value > 9 {
+                first_value = n;
+            }
+            last_value = n;
+        }
+    }
+    
+    10 * first_value + last_value
+}
+
+
+
 fn part1(content: &str) {
-    println!("Part 1 not implemented");
+    let mut total = 0;
+    for row in content.lines() {
+        total += calculate_calibration_value(&row);
+    }
+    println!("Part 1: Sum of all calibration values is {}", total);
 }
 
 fn part2(content: &str) {
