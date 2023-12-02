@@ -62,6 +62,19 @@ impl Game {
 
         true
     }
+
+    fn minimum_power(&self) -> u32 {
+        let mut min_needed_red = 0;
+        let mut min_needed_green = 0;
+        let mut min_needed_blue = 0;
+        for observation in self.observations.iter() {
+            min_needed_red = min_needed_red.max(observation.red);
+            min_needed_green = min_needed_green.max(observation.green);
+            min_needed_blue = min_needed_blue.max(observation.blue);
+        }
+        
+        min_needed_red * min_needed_green * min_needed_blue 
+    }
 }
 
 fn part1(content: &str) {
@@ -76,7 +89,12 @@ fn part1(content: &str) {
 }
 
 fn part2(content: &str) {
-    println!("Part 2 not implemented");
+    let mut total = 0;
+    for line in content.lines() {
+        let game = Game::parse(line);
+        total += game.minimum_power();
+    }
+    println!("Part 2: The sum of the powers of sets is {}", total);    
 }
 
 pub fn execute() {
