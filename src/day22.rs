@@ -2,11 +2,11 @@ use crate::input_files::get_current_day;
 use crate::input_files::read_content;
 use std::path::Path;
 
-fn part1(content: &str) {
+fn part1(_content: &str) {
     println!("Part 1 not implemented");
 }
 
-fn part2(content: &str) {
+fn part2(_content: &str) {
     println!("Part 2 not implemented");
 }
 
