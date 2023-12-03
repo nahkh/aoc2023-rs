@@ -14,12 +14,34 @@ impl Position {
         Position { x, y }
     }
 
-    pub fn neighbors(&self) -> [Position; 4] {
+    pub fn orthogonal_neighbors(&self) -> [Position; 4] {
         [
             *self + Position::new(-1, 0),
             *self + Position::new(1, 0),
             *self + Position::new(0, -1),
             *self + Position::new(0, 1),
+        ]
+    }
+
+    pub fn diagonal_neighbors(&self) -> [Position; 4] {
+        [
+            *self + Position::new(-1, -1),
+            *self + Position::new(-1, 1),
+            *self + Position::new(1, -1),
+            *self + Position::new(1, 1),
+        ]
+    }
+
+    pub fn all_neighbors(&self) -> [Position; 8] {
+        [
+            *self + Position::new(-1, 0),
+            *self + Position::new(1, 0),
+            *self + Position::new(0, -1),
+            *self + Position::new(0, 1),
+            *self + Position::new(-1, -1),
+            *self + Position::new(-1, 1),
+            *self + Position::new(1, -1),
+            *self + Position::new(1, 1),
         ]
     }
 

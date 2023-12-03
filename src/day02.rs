@@ -1,7 +1,7 @@
 use crate::input_files::get_current_day;
 use crate::input_files::read_content;
-use std::path::Path;
 use regex::Regex;
+use std::path::Path;
 
 #[derive(Debug, PartialEq)]
 struct Observation {
@@ -18,16 +18,22 @@ impl Observation {
         for part in content.trim().split(',') {
             let re = Regex::new(r"\s*(\d+) (\w+)").unwrap();
             let captures = re.captures(part).unwrap();
-            let number = captures.get(1).unwrap().as_str().parse::<u32>().ok().unwrap();
+            let number = captures
+                .get(1)
+                .unwrap()
+                .as_str()
+                .parse::<u32>()
+                .ok()
+                .unwrap();
             let color = captures.get(2).unwrap().as_str();
             match color {
                 "red" => red = number,
                 "green" => green = number,
                 "blue" => blue = number,
-                _ => panic!("Unparseable color {} in {}", color, part)
+                _ => panic!("Unparseable color {} in {}", color, part),
             }
         }
-        Observation {red, green, blue}
+        Observation { red, green, blue }
     }
 
     fn is_possible(&self, actual_red: u32, actual_green: u32, actual_blue: u32) -> bool {
@@ -38,7 +44,7 @@ impl Observation {
 #[derive(Debug)]
 struct Game {
     id: u32,
-    observations: Vec<Observation>
+    observations: Vec<Observation>,
 }
 
 impl Game {
@@ -50,7 +56,7 @@ impl Game {
             observations.push(Observation::parse(observation_part));
         }
 
-        Game {id, observations}
+        Game { id, observations }
     }
 
     fn is_possible(&self, actual_red: u32, actual_green: u32, actual_blue: u32) -> bool {
@@ -72,8 +78,8 @@ impl Game {
             min_needed_green = min_needed_green.max(observation.green);
             min_needed_blue = min_needed_blue.max(observation.blue);
         }
-        
-        min_needed_red * min_needed_green * min_needed_blue 
+
+        min_needed_red * min_needed_green * min_needed_blue
     }
 }
 
@@ -85,7 +91,7 @@ fn part1(content: &str) {
             total += game.id;
         }
     }
-    println!("Part 1: The sum of ids of possible games is {}", total);    
+    println!("Part 1: The sum of ids of possible games is {}", total);
 }
 
 fn part2(content: &str) {
@@ -94,7 +100,7 @@ fn part2(content: &str) {
         let game = Game::parse(line);
         total += game.minimum_power();
     }
-    println!("Part 2: The sum of the powers of sets is {}", total);    
+    println!("Part 2: The sum of the powers of sets is {}", total);
 }
 
 pub fn execute() {
