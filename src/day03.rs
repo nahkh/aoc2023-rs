@@ -16,6 +16,7 @@ impl SchematicNumber {
     }
 }
 
+#[allow(dead_code)]
 struct Component {
     symbol: char,
     position: Position,

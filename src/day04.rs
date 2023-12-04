@@ -3,6 +3,7 @@ use crate::input_files::read_content;
 use std::collections::HashSet;
 use std::path::Path;
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Card {
     id: u32,
